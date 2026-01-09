@@ -348,6 +348,7 @@ footer {
     /* Adjusted size for small mobile while keeping one line */
     .hero h1 {
         font-size: clamp(1.15rem, 6.2vw, 2.4rem);
+        line-height: 1.25;
     }
 
     .hero h1::after {
