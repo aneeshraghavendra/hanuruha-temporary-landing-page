@@ -1,0 +1,1 @@
+// File removed. App now uses index.js directly.
