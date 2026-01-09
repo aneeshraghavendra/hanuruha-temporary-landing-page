@@ -1,16 +1,29 @@
-# Run and deploy your App
+# Hanuruha Foundation Landing Page
 
-This contains everything you need to run your app locally.
+Static HTML/CSS/JS landing page, ready for Netlify.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1yUlOoZb5Bc85Hc-4vUDoJFk_zhCdTILM
+## Folder structure
 
-## Run Locally
+- `index.html`
+- `css/styles.css`
+- `js/main.js`
+- `metadata.js` (single source of content; works offline)
+- `assets/` (logo + PDF)
 
-**Prerequisites:**  Node.js
+## Content updates
 
+Edit `metadata.js`:
+- Hero text, marquee text, contacts, footer
+- Brochure link (currently `assets/banner.pdf`)
+- WhatsApp link
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Run locally
+
+Just open `index.html`.
+
+## Netlify deploy
+
+- Publish directory: `.`
+- Build command: none
+
+This repo includes `netlify.toml` with those settings.

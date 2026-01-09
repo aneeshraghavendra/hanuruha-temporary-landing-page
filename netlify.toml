@@ -1,0 +1,5 @@
+[build]
+  publish = "."
+  command = ""
+
+# No redirects/rules needed for a single-page static landing page.
