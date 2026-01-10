@@ -175,7 +175,7 @@ const renderBodyFromMetadata = (metadata) => {
         cardsEl.innerHTML = cards
             .map((card, idx) => {
                 const delay = delays[idx];
-                const delayStyle = typeof delay === 'number' ? ` style="animation-delay: ${delay}s"` : '';
+                const delayStyle = typeof delay === 'number' ? ` style="transition-delay: ${delay}s"` : '';
                 const iconClass = escapeHtml(card.iconClass || '');
                 const title = escapeHtml(card.title || '');
                 const value = escapeHtml(card.value || '');
@@ -185,7 +185,7 @@ const renderBodyFromMetadata = (metadata) => {
                 const ariaLabel = escapeHtml(card.ariaLabel || '');
 
                 return `
-                    <div class="col-md-4 reveal"${delayStyle}>
+                    <div class="col-md-4 reveal-on-scroll"${delayStyle}>
                         <a href="${href}" class="contact-card" title="${titleAttr}" aria-label="${ariaLabel}">
                             <i class="${iconClass}" aria-hidden="true"></i>
                             <h3 class="fw-bold h5 mb-1">${title}</h3>
@@ -217,6 +217,37 @@ const renderBodyFromMetadata = (metadata) => {
     if (copyrightEl) {
         copyrightEl.innerHTML = (content.footer && content.footer.copyrightHtml) ? content.footer.copyrightHtml : '';
     }
+};
+
+const initScrollReveal = () => {
+    const nodes = Array.prototype.slice.call(document.querySelectorAll('.reveal-on-scroll'));
+    if (!nodes.length) return;
+
+    // Respect reduced motion.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        for (let i = 0; i < nodes.length; i += 1) nodes[i].classList.add('is-visible');
+        return;
+    }
+
+    // Fallback: if IntersectionObserver isn't supported, reveal immediately.
+    if (!('IntersectionObserver' in window)) {
+        for (let i = 0; i < nodes.length; i += 1) nodes[i].classList.add('is-visible');
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (let i = 0; i < entries.length; i += 1) {
+                const entry = entries[i];
+                if (!entry.isIntersecting) continue;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        },
+        { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+
+    for (let i = 0; i < nodes.length; i += 1) observer.observe(nodes[i]);
 };
 
 const getLaunchDate = (metadata) => {
@@ -293,6 +324,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const metadata = await loadMetadata();
         applyHeadFromMetadata(metadata);
         renderBodyFromMetadata(metadata);
+        initScrollReveal();
         initCountdown(metadata);
     } catch (err) {
         console.error(err);
@@ -300,7 +332,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const heroTitle = document.getElementById('hero-title');
         const heroDesc = document.getElementById('hero-description');
         if (heroTitle) heroTitle.textContent = 'Content unavailable';
-        if (heroDesc) heroDesc.textContent = 'metadata.json could not be loaded. Run via a local server (see README.md) or deploy to Netlify.';
+        if (heroDesc) heroDesc.textContent = 'metadata.js could not be loaded. Please ensure metadata.js is present and referenced by index.html.';
 
         initCountdown(null);
     }

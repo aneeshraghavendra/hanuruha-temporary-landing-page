@@ -40,7 +40,7 @@ window.__HANURUHA_METADATA = {
         "addressRegion": "Karnataka",
         "addressCountry": "IN"
       },
-      "telephone": "+91-7353836666",
+      "telephone": "+91 73538 36666",
       "email": "info@hanuruha.com",
       "url": "https://hanuruha.com"
     }
@@ -91,20 +91,20 @@ window.__HANURUHA_METADATA = {
         {
           "iconClass": "fas fa-phone-volume",
           "title": "Admissions",
-          "value": "+91 7353836666",
+          "value": "+91 73538 36666",
           "valueClass": "phone-number",
           "href": "tel:+917353836666",
           "titleAttr": "Call our Admissions team",
-          "ariaLabel": "Call Admissions at +91 7353836666"
+          "ariaLabel": "Call Admissions at +91 73538 36666"
         },
         {
           "iconClass": "fas fa-headset",
           "title": "24/7 Support",
-          "value": "+91 7353496666",
+          "value": "+91 73534 96666",
           "valueClass": "phone-number",
           "href": "tel:+917353496666",
           "titleAttr": "Call our 24/7 Helpline",
-          "ariaLabel": "Call 24/7 Support at +91 7353496666"
+          "ariaLabel": "Call 24/7 Support at +91 73534 96666"
         },
         {
           "iconClass": "fas fa-paper-plane",
